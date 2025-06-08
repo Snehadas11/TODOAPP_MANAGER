@@ -7,8 +7,11 @@ router.get('/google',
 
 router.get('/google/callback',
   passport.authenticate('google', {
-    failureRedirect: process.env.FRONTEND_URL,
-    successRedirect: process.env.FRONTEND_URL,
+    failureRedirect: '/auth/failure',
+    successRedirect: 'http://localhost:3000',
   }));
+router.get('/failure', (req, res) => {
+  res.status(401).json({ message: 'Failed to authenticate.' });
+});
 
 module.exports = router;

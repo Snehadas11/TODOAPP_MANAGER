@@ -1,0 +1,81 @@
+/* AddTodo.css */
+
+.add-todo-form {
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.add-todo-heading {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.add-todo-input,
+.add-todo-textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.add-todo-textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.add-todo-input:focus,
+.add-todo-textarea:focus {
+  border-color: #0056b3;
+}
+
+.add-todo-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  font-family: inherit;
+}
+
+.add-todo-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive adjustments for smaller devices */
+@media (max-width: 480px) {
+  .add-todo-form {
+    padding: 15px;
+    margin: 15px 10px;
+    max-width: 100%;
+  }
+
+  .add-todo-input,
+  .add-todo-textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .add-todo-button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}

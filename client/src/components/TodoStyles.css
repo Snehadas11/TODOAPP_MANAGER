@@ -1,0 +1,154 @@
+/* TodoStyles.css */
+
+/* Container and heading */
+.todo-list-container {
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.todo-list-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Filters */
+.filters {
+  margin-bottom: 20px;
+}
+
+.filters input[type="text"],
+.filters select,
+.filters input[type="date"] {
+  padding: 8px;
+  margin-right: 10px;
+  width: 200px;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* TodoItem card */
+.todo-card {
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+.todo-card.overdue {
+  background-color: #ffe6e6;
+}
+
+.todo-card.complete {
+  background-color: #d4edda;
+  text-decoration: line-through;
+}
+
+/* Editable inputs */
+.todo-input,
+.todo-textarea {
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+/* Buttons */
+.todo-button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.todo-button.primary {
+  background-color: #28a745;
+}
+
+.todo-button.primary:hover {
+  background-color: #218838;
+}
+
+.todo-button.secondary {
+  background-color: #6c757d;
+}
+
+.todo-button.secondary:hover {
+  background-color: #5a6268;
+}
+
+.todo-button.danger {
+  background-color: #dc3545;
+}
+
+.todo-button.danger:hover {
+  background-color: #c82333;
+}
+/* Responsive styles for TodoList and TodoItem */
+
+@media (max-width: 600px) {
+  .todo-list-container {
+    padding: 10px;
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filters input[type="text"],
+  .filters select,
+  .filters input[type="date"] {
+    width: 100%;
+    margin-right: 0;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .todo-card {
+    padding: 12px;
+  }
+
+  .todo-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .todo-card p {
+    font-size: 0.9rem;
+  }
+
+  .todo-input,
+  .todo-textarea {
+    font-size: 0.9rem;
+  }
+
+  .todo-button {
+    font-size: 0.9rem;
+    padding: 7px 10px;
+    margin-right: 6px;
+  }
+
+  /* Buttons container spacing inside todo-card */
+  .todo-card > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

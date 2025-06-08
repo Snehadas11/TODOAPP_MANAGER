@@ -5,19 +5,23 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  // Serialize only user id for session
+  done(null, user.id);
 });
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser((id, done) => {
+  // Usually get user from DB by id here
+  // For now, just pass the id as user object
+  done(null, { id });
 });
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/auth/google/callback',
+  callbackURL: process.env.GOOGLE_CALLBACK_URL || '/auth/google/callback',
 },
 (accessToken, refreshToken, profile, done) => {
-  // You can save user info to DB here if needed, for now just pass profile
+  // You can save or update user in DB here
+  // For now, just pass profile as user object
   done(null, profile);
 }));
