@@ -3,43 +3,42 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const session = require('express-session');
+const passport = require('passport');
 
 dotenv.config();
-console.log("MONGO_URI is:", process.env.MONGO_URI);
 
 const app = express();
 
+// CORS
 app.use(cors({
   origin: process.env.FRONTEND_URL,
-  credentials: true
+  credentials: true,
 }));
 
 app.use(express.json());
 
+// SESSION
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false,   // set true if using HTTPS
+    sameSite: 'lax',
+  },
 }));
 
-const passport = require('./auth/passport'); // load passport config once
+// PASSPORT
+require('./auth/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/auth', require('./auth/google')); // Use auth routes
+// ROUTES
+app.use('/auth', require('./auth/google'));
 app.use('/todos', require('./routes/todo'));
 
-app.get('/', (req, res) => {
-  res.send('Server is up and running!');
-});
-
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running on port ${process.env.PORT}`);
-    });
-  })
-  .catch(err => console.log(err));
+// Route to check if logged in
 app.get('/auth/user', (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ user: req.user });
@@ -47,8 +46,16 @@ app.get('/auth/user', (req, res) => {
     res.status(401).json({ user: null });
   }
 });
-app.get('/auth/logout', (req, res) => {
-  req.logout(() => {
-    res.redirect(process.env.FRONTEND_URL); // redirects to React app after logout
-  });
+
+app.get('/', (req, res) => {
+  res.send('Server is up and running!');
 });
+
+// DB + Server
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Server running on port ${process.env.PORT}`);
+    });
+  })
+  .catch(err => console.log(err));

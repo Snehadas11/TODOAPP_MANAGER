@@ -1,16 +1,8 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const dotenv = require('dotenv');
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback'
-  },
-  (accessToken, refreshToken, profile, done) => {
-    console.log("Google Profile:", profile);
-    return done(null, profile);
-  }
-));
+dotenv.config();
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -20,4 +12,12 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-module.exports = passport;
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: '/auth/google/callback',
+},
+(accessToken, refreshToken, profile, done) => {
+  // You can save user info to DB here if needed, for now just pass profile
+  done(null, profile);
+}));
