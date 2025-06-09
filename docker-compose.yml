@@ -1,13 +1,11 @@
 services:
   client:
-    build:
-      context: ./client
+    build: ./client
     ports:
       - "3000:80"
-  
+
   server:
-    build:
-      context: ./server
+    build: ./server
     ports:
       - "5000:5000"
     environment:
@@ -17,7 +15,6 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
-      - FRONTEND_URL=${FRONTEND_URL}
     depends_on:
       - mongo
 
