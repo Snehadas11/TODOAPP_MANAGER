@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import AddTodo from './components/AddTodo';
 import TodoList from './components/TodoList';
+import Login from './components/Login';
 import './App.css';
 
 const Home = ({ onTodoAdded }) => {
@@ -85,9 +86,11 @@ const MainApp = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/auth/user', {
-      credentials: 'include',
-    })
+    fetch('http://10.1.70.163:5000/auth/user', {
+  credentials: 'include',
+})
+
+    
       .then((res) => {
         if (res.status === 200) return res.json();
         else throw new Error('Not logged in');
@@ -97,9 +100,9 @@ const MainApp = () => {
       })
       .catch(() => {
         setIsLoggedIn(false);
-        window.location.href = 'http://localhost:5000/auth/google';
+        navigate('/login');
       });
-  }, []);
+  }, [navigate]);
 
   if (isLoggedIn === null) return <p>Loading...</p>;
 
@@ -107,6 +110,7 @@ const MainApp = () => {
     <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ textAlign: 'center' }}>Todo Task Manager</h1>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home onTodoAdded={handleTodoAdded} />} />
         <Route path="/todos" element={<TodoListPage refresh={refresh} />} />
       </Routes>

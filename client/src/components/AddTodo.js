@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../api';
 import './AddTodo.css';
 
-const AddTodo = ({ refreshTodos }) => {
+const AddTodo = ({ onTodoAdded }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -15,9 +15,18 @@ const AddTodo = ({ refreshTodos }) => {
       setTitle('');
       setDescription('');
       setDueDate('');
-      refreshTodos();
+      onTodoAdded();
     } catch (err) {
-      console.error('Error creating todo:', err);
+      // Enhanced error logging for easier debugging
+      console.error('Error creating todo:', err.message);
+      if (err.response) {
+        console.error('Response data:', err.response.data);
+        console.error('Response status:', err.response.status);
+      } else if (err.request) {
+        console.error('Request made but no response received:', err.request);
+      } else {
+        console.error('Error setting up request:', err.message);
+      }
     }
   };
 
