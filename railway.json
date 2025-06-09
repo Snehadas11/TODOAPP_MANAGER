@@ -1,6 +1,0 @@
-{
-  "build": {
-    "builder": "docker"
-  },
-  "start": "node server/index.js"
-}

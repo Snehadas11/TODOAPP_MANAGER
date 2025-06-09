@@ -86,7 +86,7 @@ const MainApp = () => {
   };
 
   useEffect(() => {
-    fetch('http://10.1.70.163:5000/auth/user', {
+    fetch('http://localhost:5000/auth/user', {
   credentials: 'include',
 })
 
